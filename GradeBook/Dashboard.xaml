@@ -138,14 +138,14 @@
                                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="50 10">
                                         <TextBlock Margin="0 0 0 8" Text="Email" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
-                                            <TextBox x:Name="Email" FontSize="17"/>
+                                            <TextBox x:Name="Email" FontSize="17" Text="{Binding Email}"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="2" Margin="50 10">
                                         <TextBlock Margin="0 0 0 8" Text="Phone Number" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
-                                            <TextBox x:Name="PhoneNumber" FontSize="17"/>
+                                            <TextBox x:Name="PhoneNumber" FontSize="17" Text="{Binding Phone}"/>
                                         </Grid>
                                     </StackPanel>
 
@@ -162,7 +162,7 @@
 
                                     <Button x:Name="SaveStudent" Content="Save"
                                             Click="SaveStudent_Click"
-                                            Foreground="White" Grid.Row="3" Grid.ColumnSpan="2" Width="150"/>
+                                            Foreground="White" Grid.Row="3" Grid.ColumnSpan="2" Width="150" Height="50" FontSize="20"/>
 
                                 </Grid>
                             </Grid>

@@ -1,9 +1,8 @@
 ﻿using GradeBook.Model;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
 
 namespace GradeBook.ViewModel
 {
@@ -27,6 +26,7 @@ namespace GradeBook.ViewModel
                 }
             } 
         }
+
         public string? FirstName
         {
             get => temp.FirstName;
@@ -35,14 +35,91 @@ namespace GradeBook.ViewModel
                 temp.FirstName = value;
                 ClearErrors();
                 RaisePropertyChanged();
-                if (value!=null && value.Length > 20 && value.Length < 1)
+                if (value!=null && value.Length > 20 || value != null && value.Length < 1)
                 {
-                    AddError("test");
+                    AddError("Name need to be 1 to 20 letters long");
                 }
+                bool containsNumberOrSymbol = false;
                 foreach (var item in value.ToCharArray())
                 {
-                    if (Char.IsDigit(item))
-                        AddError("test");
+                    if (Char.IsNumber(item) || !Char.IsLetterOrDigit(item))
+                    {
+                        containsNumberOrSymbol = true;
+                        break;
+                    }
+                }
+                if (containsNumberOrSymbol)
+                {
+                    AddError("Name cannot contain numbers or special chars");
+                }
+            }
+        }
+
+        public string? LastName
+        {
+            get => temp.LastName;
+            set
+            {
+                temp.LastName = value;
+                ClearErrors();
+                RaisePropertyChanged();
+                if (value != null && value.Length > 20 && value.Length < 1)
+                {
+                    AddError("Last name need to be 1 to 20 letters long");
+                }
+                bool containsNumberOrSymbol = false;
+                foreach (var item in value.ToCharArray())
+                {
+                    if (Char.IsNumber(item) || !Char.IsLetterOrDigit(item))
+                    {
+                        containsNumberOrSymbol = true;
+                        break;
+                    }
+                }
+                if (containsNumberOrSymbol)
+                {
+                    AddError("Last name cannot contain numbers or special chars");
+                }
+            }
+        }
+
+        public string? Email
+        {
+            get => temp.Email;
+            set
+            {
+                temp.Email = value;
+                ClearErrors();
+                RaisePropertyChanged();
+                if (value != null)
+                {
+                    bool isValidEmail = Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+                    if (!isValidEmail)
+                    {
+                       AddError("Enter valid email");
+                    }
+                }
+            }
+        }
+
+        public string? Phone
+        {
+            get => temp.Phone;
+            set
+            {
+                temp.Phone = value;
+                ClearErrors();
+                RaisePropertyChanged();
+                if (value != null)
+                {
+                    if (value.Length != 10)
+                    {
+                        AddError("Phone number must be 10 numbers long");
+                    }
+                    if (!int.TryParse(value, out _))
+                    {
+                        AddError("Phone number must contain numbers only");
+                    }
                 }
             }
         }
