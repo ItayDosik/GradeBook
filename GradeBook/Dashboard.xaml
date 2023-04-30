@@ -59,7 +59,14 @@
                             <Button x:Name="StudnetsBtn" Style="{StaticResource menuButton}" Background="#F7F6F4" Foreground="#4c956c" Click="StudnetsBtn_Click">
                                 <StackPanel Orientation="Horizontal">
                                     <materialDesign:PackIcon Kind="AccountStudent" Style="{StaticResource menuButtonIcon}"/>
-                                    <TextBlock Text="Add Students" Style="{StaticResource menuButtonText}"/>
+                                    <TextBlock Text="Add Student" Style="{StaticResource menuButtonText}"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button x:Name="RandomStudnetsBtn" Style="{StaticResource menuButton}" Click="RandomStudnetsBtn_Click">
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon Kind="AccountStudent" Style="{StaticResource menuButtonIcon}"/>
+                                    <TextBlock Text="Random Students" Style="{StaticResource menuButtonText}"/>
                                 </StackPanel>
                             </Button>
 
@@ -80,9 +87,15 @@
                         <materialDesign:TransitionerSlide.ForwardWipe>
                             <materialDesign:SlideOutWipe />
                         </materialDesign:TransitionerSlide.ForwardWipe>
-                        <local:AddStudent/>
+                        
+                        <!--Add Student Page-->
+                        <TextBlock Text="1"/>
+                        
                     </materialDesign:TransitionerSlide>
-                    <local:StudentReport/>
+                    
+                    <!--Report Page-->
+                    <TextBlock Text="TEST"/>
+                    
                 </materialDesign:Transitioner>
                 
             </Grid>
