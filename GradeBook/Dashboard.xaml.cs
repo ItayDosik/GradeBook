@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GradeBook.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace GradeBook
     /// </summary>
     public partial class Dashboard : Window
     {
+        StudentViewModel studentViewModel;
         public Dashboard()
         {
             InitializeComponent();
+            studentViewModel = new StudentViewModel();
+            DataContext = studentViewModel;
             this.Height = SystemParameters.PrimaryScreenHeight * 0.80;
             this.Width = SystemParameters.PrimaryScreenWidth * 0.60;
         }
@@ -80,6 +84,11 @@ namespace GradeBook
         }
 
         private void RandomStudnetsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void SaveStudent_Click(object sender, RoutedEventArgs e)
         {
 
         }

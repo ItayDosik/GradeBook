@@ -5,18 +5,18 @@ namespace GradeBook.Model
 {
     public class Student
     {
-        public string Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Email { get; set; }
-        public string Phone { get; set; }
+        public string? ID { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public string? Phone { get; set; }
 
         public int[] Grades = new int[5];
 
         public double Average { get; set; }
         public Student(string id, string firstName, string lastName, string email, string phone, int grade0, int grade1, int grade2, int grade3, int grade4)
         {
-            Id = id;
+            ID = id;
             FirstName = firstName;
             LastName = lastName;
             Email = email;
@@ -28,6 +28,25 @@ namespace GradeBook.Model
             Grades[4] = grade4;
             Average = calcAverage();
         }
+
+        public Student()
+        {
+        }
+        public Student(Student other)
+        {
+            ID = other.ID;
+            FirstName = other.FirstName;
+            LastName = other.LastName;
+            Email = other.Email;
+            Phone = other.Phone;
+            Grades[0] = other.Grades[0];
+            Grades[1] = other.Grades[1];
+            Grades[2] = other.Grades[2];
+            Grades[3] = other.Grades[3];
+            Grades[4] = other.Grades[4];
+            Average = calcAverage();
+        }
+
         public static List<Student> SortStudentsByAverage(List<Student> students)
         {
 

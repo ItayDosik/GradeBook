@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:local="clr-namespace:GradeBook"
+        xmlns:local="clr-namespace:GradeBook" xmlns:viewmodel="clr-namespace:GradeBook.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:StudentViewModel}"
         mc:Ignorable="d"
         MinHeight="720"
         MinWidth="1100"
@@ -65,7 +65,7 @@
 
                             <Button x:Name="RandomStudnetsBtn" Style="{StaticResource menuButton}" Click="RandomStudnetsBtn_Click">
                                 <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon Kind="AccountStudent" Style="{StaticResource menuButtonIcon}"/>
+                                    <materialDesign:PackIcon Kind="AccountMultipleAdd" Style="{StaticResource menuButtonIcon}"/>
                                     <TextBlock Text="Random Students" Style="{StaticResource menuButtonText}"/>
                                 </StackPanel>
                             </Button>
@@ -88,9 +88,86 @@
                             <materialDesign:SlideOutWipe />
                         </materialDesign:TransitionerSlide.ForwardWipe>
                         
-                        <!--Add Student Page-->
-                        <TextBlock Text="1"/>
-                        
+                        <materialDesign:Card UniformCornerRadius="25" Grid.Column="0" Margin="20" Grid.Row="0">
+                            <Grid>
+                                <!--Title-->
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Border BorderBrush="{DynamicResource MaterialDesignDivider}" BorderThickness="0,0,0,1" HorizontalAlignment="Stretch" Margin="0 10 0 40" Grid.Row="0">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <TextBlock Text="Add New Student" Style="{StaticResource MaterialDesignHeadline3TextBlock}" Margin="0 0 0 5"/>
+                                    </StackPanel>
+                                </Border>
+                                <!--Form-->
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    
+                                    <StackPanel Grid.Column="0" Grid.Row="0" Margin="50 10">
+                                        <TextBlock Margin="0 0 0 8" Text="ID number" Foreground="#97A5B4" FontSize="13"/>
+                                        <Grid>
+                                            <TextBox x:Name="ID" FontSize="17" Text="{Binding ID}"/>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Grid.Row="0" Margin="50 10">
+                                        <TextBlock Margin="0 0 0 8" Text="First Name" Foreground="#97A5B4" FontSize="13"/>
+                                        <Grid>
+                                            <TextBox x:Name="FirstName" FontSize="17" Text="{Binding FirstName}"/>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="0" Grid.Row="1" Margin="50 10">
+                                        <TextBlock Margin="0 0 0 8" Text="Last Name" Foreground="#97A5B4" FontSize="13"/>
+                                        <Grid>
+                                            <TextBox x:Name="LastName" FontSize="17"/>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Grid.Row="1" Margin="50 10">
+                                        <TextBlock Margin="0 0 0 8" Text="Email" Foreground="#97A5B4" FontSize="13"/>
+                                        <Grid>
+                                            <TextBox x:Name="Email" FontSize="17"/>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="0" Grid.Row="2" Margin="50 10">
+                                        <TextBlock Margin="0 0 0 8" Text="Phone Number" Foreground="#97A5B4" FontSize="13"/>
+                                        <Grid>
+                                            <TextBox x:Name="PhoneNumber" FontSize="17"/>
+                                        </Grid>
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Column="1" Grid.Row="2" Margin="50 10">
+                                        <TextBlock Margin="0 0 0 8" Text="Grades" Foreground="#97A5B4" FontSize="13"/>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBox x:Name="Grade0" FontSize="17" Width="50" Margin="0 0 10 0"/>
+                                            <TextBox x:Name="Grade1" FontSize="17" Width="50" Margin="0 0 10 0"/>
+                                            <TextBox x:Name="Grade2" FontSize="17" Width="50" Margin="0 0 10 0"/>
+                                            <TextBox x:Name="Grade3" FontSize="17" Width="50" Margin="0 0 10 0"/>
+                                            <TextBox x:Name="Grade4" FontSize="17" Width="50" Margin="0 0 10 0"/>
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <Button x:Name="SaveStudent" Content="Save"
+                                            Click="SaveStudent_Click"
+                                            Foreground="White" Grid.Row="3" Grid.ColumnSpan="2" Width="150"/>
+
+                                </Grid>
+                            </Grid>
+                        </materialDesign:Card>
+
                     </materialDesign:TransitionerSlide>
                     
                     <!--Report Page-->
