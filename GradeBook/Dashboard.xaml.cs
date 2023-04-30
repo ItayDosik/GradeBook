@@ -78,5 +78,10 @@ namespace GradeBook
             StudnetsBtn.ClearValue(Button.BackgroundProperty);
             StudnetsBtn.ClearValue(Button.ForegroundProperty);
         }
+
+        private void RandomStudnetsBtn_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
