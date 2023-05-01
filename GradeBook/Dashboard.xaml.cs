@@ -6,6 +6,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 
+using System.Threading.Tasks;
+using MaterialDesignThemes.Wpf;
+
 namespace GradeBook
 {
     /// <summary>
@@ -64,7 +67,7 @@ namespace GradeBook
             studentViewModel.ClearStudentForm();
         }
 
-        private void ReportBtn_Click(object sender, RoutedEventArgs e)
+        private async void ReportBtn_Click(object sender, RoutedEventArgs e)
         {
             
             PageTransitioner.SelectedIndex = 1;
@@ -75,16 +78,36 @@ namespace GradeBook
             StudnetsBtn.ClearValue(Button.BackgroundProperty);
             StudnetsBtn.ClearValue(Button.ForegroundProperty);
             Stopwatch stopwatch = Stopwatch.StartNew();
-            studentViewModel.SortStudents();
-            stopwatch.Stop();   
-            SortTime.Text = stopwatch.Elapsed.TotalSeconds.ToString();
-          
+            Elapsed.Visibility = Visibility.Hidden;
+
+            await Task.Run(() =>
+            {
+                studentViewModel.SortStudents();
+                stopwatch.Stop();
+
+            });
+
+            Dispatcher.Invoke(() =>
+            {
+                Elapsed.Visibility = Visibility.Visible;
+                SortTime.Text = stopwatch.Elapsed.TotalSeconds.ToString();
+            });
+
         }
 
-        private void RandomStudnetsBtn_Click(object sender, RoutedEventArgs e)
+        private async void confirmBtn_Click(object sender, RoutedEventArgs e)
         {
-
+            AddStudentsPBar.Visibility = Visibility.Visible;
+            await Task.Run(() =>
+            {
+                studentViewModel.AddRandomStudent(1);
+            });
+            
+            Dispatcher.Invoke(() =>
+            {               
+                DialogHost.Close("rootDialog");
+                AddStudentsPBar.Visibility = Visibility.Collapsed;
+            });
         }
-
     }
 }

@@ -184,7 +184,7 @@ namespace GradeBook.ViewModel
 
         public bool IsSaveAble { get => !HasErrors && ID != null && FirstName != null && LastName != null && Email != null && Phone != null && StrGrades != null; }
 
-        private void AddRandomStudent(object? obj)
+        public void AddRandomStudent(object? obj)
         {
             int id,g0,g1,g2,g3,g4;
             string firstname, lastname, email, phone;
@@ -230,7 +230,6 @@ namespace GradeBook.ViewModel
                     id = random.Next(100000000, 1000000000);
                 students.Add(new Student(id.ToString(), firstname, lastname, email, phone, g0, g1, g2, g3, g4));    
             }
-            DialogHost.Close("rootDialog");
         }
         private void SaveStudent(object? obj)
         {
