@@ -51,37 +51,40 @@ namespace GradeBook.Model
         public static List<Student> SortStudentsByAverage(List<Student> students)
         {
 
-            //List<Student> arr = new List<Student>(students);
-            //int n = students.Count;
-            //for (int i = 0; i < n - 1; i++)
-            //{
-            //    for (int j = 0; j < n - i - 1; j++)
-            //    {
-            //        if (arr[j].Average > arr[j + 1].Average)
-            //        {
-            //            // Swap students if j-th student's average is greater than (j+1)-th student's average
-            //            Student temp = arr[j];
-            //            arr[j] = arr[j + 1];
-            //            arr[j + 1] = temp;
-            //        }
-            //    }
-            //}
-            var arr=students.ToArray();
-            double maxAverage = arr[0].Average;
-            for (int i = 1; i < arr.Length; i++)
+            List<Student> arr = new List<Student>(students);
+            int n = students.Count;
+            for (int i = 0; i < n - 1; i++)
             {
-                if (arr[i].Average > maxAverage)
+                for (int j = 0; j < n - i - 1; j++)
                 {
-                    maxAverage = arr[i].Average;
+                    if (arr[j].Average > arr[j + 1].Average)
+                    {
+                        // Swap students if j-th student's average is greater than (j+1)-th student's average
+                        Student temp = arr[j];
+                        arr[j] = arr[j + 1];
+                        arr[j + 1] = temp;
+                    }
                 }
             }
-
-            // Do counting sort for every digit, starting from least significant to most significant
-            for (int exp = 1; maxAverage / exp > 0; exp *= 10)
-            {
-                CountingSortByAverage(arr, exp);
-            }
             return new List<Student>(arr);
+
+
+            //var arr=students.ToArray();
+            //double maxAverage = arr[0].Average;
+            //for (int i = 1; i < arr.Length; i++)
+            //{
+            //    if (arr[i].Average > maxAverage)
+            //    {
+            //        maxAverage = arr[i].Average;
+            //    }
+            //}
+
+            //// Do counting sort for every digit, starting from least significant to most significant
+            //for (int exp = 1; maxAverage / exp > 0; exp *= 10)
+            //{
+            //    CountingSortByAverage(arr, exp);
+            //}
+            //return new List<Student>(arr);
         }
         private double calcAverage()
         {

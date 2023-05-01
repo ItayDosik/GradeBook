@@ -1,18 +1,10 @@
 ﻿using GradeBook.ViewModel;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace GradeBook
 {
@@ -69,18 +61,24 @@ namespace GradeBook
 
             ReportBtn.ClearValue(Button.BackgroundProperty);
             ReportBtn.ClearValue(Button.ForegroundProperty);
+            studentViewModel.ClearStudentForm();
         }
 
         private void ReportBtn_Click(object sender, RoutedEventArgs e)
         {
+            
             PageTransitioner.SelectedIndex = 1;
-
             var Converter = new BrushConverter();
             ReportBtn.Background = (Brush)Converter.ConvertFromString("#F7F6F4");
             ReportBtn.Foreground = (Brush)Converter.ConvertFromString("#4c956c");
 
             StudnetsBtn.ClearValue(Button.BackgroundProperty);
             StudnetsBtn.ClearValue(Button.ForegroundProperty);
+            Stopwatch stopwatch = Stopwatch.StartNew();
+            studentViewModel.SortStudents();
+            stopwatch.Stop();   
+            SortTime.Text = stopwatch.Elapsed.TotalSeconds.ToString();
+          
         }
 
         private void RandomStudnetsBtn_Click(object sender, RoutedEventArgs e)
@@ -88,9 +86,5 @@ namespace GradeBook
 
         }
 
-        private void SaveStudent_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
