@@ -69,14 +69,13 @@
                                     <TextBlock Text="Random Students" Style="{StaticResource menuButtonText}"/>
                                 </StackPanel>
                                 <Button.CommandParameter>
-
-                                    <StackPanel Margin="16">
-                                        <Label Content="Delete" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="0 0 0 5"/>
+                                    <StackPanel Margin="16" Background="#f0fff1">
+                                        <Label Content="Add Random Students" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="0 0 0 5"/>
                                         <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="0 0 0 1" Margin="0 0 0 5"/>
-                                        <Label Content="Do you really want to delete these records?" HorizontalAlignment="Center" FontSize="15"/>
-                                        <Label Content="This process cannot be undone." HorizontalAlignment="Center" FontSize="15"/>
+                                        <Label Content="This feature will add 1000 random students to your list. " HorizontalAlignment="Center" FontSize="15"/>
+                                        <Label Content="Would you like to proceed with this action?" HorizontalAlignment="Center" FontSize="15"/>
                                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                            <Button Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Foreground="#D11A2A"
+                                            <Button Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Foreground="#4c956c"
                                                         Margin="0 8 8 0" Command="{Binding RemoveBirdCommand}" Content="CONFIRM"
                                                         IsCancel="True"/>
                                             <Button Style="{StaticResource MaterialDesignFlatButton}" Foreground="Black"
