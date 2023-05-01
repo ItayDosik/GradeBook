@@ -10,6 +10,7 @@ namespace GradeBook.Model
         public string? LastName { get; set; }
         public string? Email { get; set; }
         public string? Phone { get; set; }
+        public string? strGrades { get; set; }
 
         public int[] Grades = new int[5];
 

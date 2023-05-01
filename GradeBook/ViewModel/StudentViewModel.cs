@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
-
+using System.Windows;
 
 namespace GradeBook.ViewModel
 {
@@ -35,22 +35,19 @@ namespace GradeBook.ViewModel
                 temp.FirstName = value;
                 ClearErrors();
                 RaisePropertyChanged();
-                if (value!=null && value.Length > 20 || value != null && value.Length < 1)
+                if(value != null)
                 {
-                    AddError("Name need to be 1 to 20 letters long");
-                }
-                bool containsNumberOrSymbol = false;
-                foreach (var item in value.ToCharArray())
-                {
-                    if (Char.IsNumber(item) || !Char.IsLetterOrDigit(item))
+                    if (value.Length > 20 || value.Length < 1)
                     {
-                        containsNumberOrSymbol = true;
-                        break;
+                        AddError("Name need to be 1 to 20 letters long");
                     }
-                }
-                if (containsNumberOrSymbol)
-                {
-                    AddError("Name cannot contain numbers or special chars");
+
+                    bool isAlpha = Regex.IsMatch(value, @"^[a-zA-Z]+$");
+
+                    if (!isAlpha)
+                    {
+                        AddError("Name cannot contain numbers or special chars");
+                    }
                 }
             }
         }
@@ -63,23 +60,20 @@ namespace GradeBook.ViewModel
                 temp.LastName = value;
                 ClearErrors();
                 RaisePropertyChanged();
-                if (value != null && value.Length > 20 && value.Length < 1)
+                if (value != null)
                 {
-                    AddError("Last name need to be 1 to 20 letters long");
-                }
-                bool containsNumberOrSymbol = false;
-                foreach (var item in value.ToCharArray())
-                {
-                    if (Char.IsNumber(item) || !Char.IsLetterOrDigit(item))
+                    if (value.Length > 20 && value.Length < 1)
                     {
-                        containsNumberOrSymbol = true;
-                        break;
+                        AddError("Last name need to be 1 to 20 letters long");
                     }
-                }
-                if (containsNumberOrSymbol)
-                {
-                    AddError("Last name cannot contain numbers or special chars");
-                }
+
+                    bool isAlpha = Regex.IsMatch(value, @"^[a-zA-Z]+$");
+
+                    if (!isAlpha)
+                    {
+                        AddError("Last name cannot contain numbers or special chars");
+                    }
+                }             
             }
         }
 
@@ -119,6 +113,41 @@ namespace GradeBook.ViewModel
                     if (!int.TryParse(value, out _))
                     {
                         AddError("Phone number must contain numbers only");
+                    }
+                }
+            }
+        }
+
+        public string? StrGrades
+        {
+            get => temp.strGrades;
+            set
+            {
+                temp.strGrades = value;
+                ClearErrors();
+                RaisePropertyChanged();
+                if (value != null)
+                {
+                    bool isValid = Regex.IsMatch(value, @"^(?:100|[1-9]\d|\d)(?:,(?:100|[1-9]\d|\d)){0,4}$");
+                    if (!isValid)
+                    {
+                        AddError("Enter valid grades. ex. \"86,42,16,100,25\"");
+                    }
+                    if (isValid)
+                    {
+                        string[] gradesArray = value.Split(',');
+                        int[] grades = Array.ConvertAll(gradesArray, int.Parse);
+
+                        for (int i = 0; i < grades.Length; i++)
+                        {
+                            temp.Grades[i] = grades[i];                           
+                        }
+
+                        for (int i = grades.Length; i < 5; i++)
+                        {
+                            temp.Grades[i] = 777;
+                        }
+
                     }
                 }
             }
