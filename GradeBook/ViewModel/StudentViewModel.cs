@@ -142,7 +142,7 @@ namespace GradeBook.ViewModel
                     {
                         AddError("Phone number must be 10 numbers long");
                     }
-                    if (!int.TryParse(value, out _))
+                    if (!double.TryParse(value, out _))
                     {
                         AddError("Phone number must contain numbers only");
                     }
@@ -314,7 +314,6 @@ namespace GradeBook.ViewModel
             students.Add(new Student(temp));
             idSet.Add(temp.ID);
             ClearStudentForm();
-
         }
         public void ClearStudentForm()
         {
@@ -349,8 +348,7 @@ namespace GradeBook.ViewModel
             }
             RaisePropertyChanged(nameof(Students));
             Loading = false;
-            RaisePropertyChanged(nameof(Loading));
-            
+            RaisePropertyChanged(nameof(Loading));           
         }
     }
 }
