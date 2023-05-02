@@ -84,13 +84,13 @@ namespace GradeBook
             {
                 studentViewModel.SortStudents();
                 stopwatch.Stop();
-
             });
 
             Dispatcher.Invoke(() =>
             {
                 Elapsed.Visibility = Visibility.Visible;
                 SortTime.Text = stopwatch.Elapsed.TotalSeconds.ToString();
+                TotalStudents.Text = studentViewModel.Students.Count.ToString();
             });
 
         }

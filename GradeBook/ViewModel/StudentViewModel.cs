@@ -253,8 +253,10 @@ namespace GradeBook.ViewModel
         {
             Loading= true;
             RaisePropertyChanged(nameof(Loading));
-            if(students.Any())
-                Students = new ObservableCollection<Student>(Student.SortStudentsByAverage(students));
+            if (students.Any())
+            {
+                Students = new ObservableCollection<Student>(Student.SortStudentsByAverage(students));           
+            }
             RaisePropertyChanged(nameof(Students));
             Loading = false;
             RaisePropertyChanged(nameof(Loading));

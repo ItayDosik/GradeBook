@@ -201,8 +201,10 @@
                                 Value="0"  VerticalAlignment="Center"/>
                             </StackPanel>
                         </materialDesign:Card>
-                        <StackPanel x:Name="Elapsed" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Margin="8" Text="Elapsed time:" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
+                        <StackPanel x:Name="Elapsed" Orientation="Horizontal" HorizontalAlignment="Stretch" Background="White">
+                            <TextBlock Margin="8" Text="Total students:" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
+                            <TextBlock Margin="0 8 0 0" x:Name="TotalStudents" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
+                            <TextBlock Margin="8" Text="|  Elapsed time:" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
                             <TextBlock Margin="0 8 0 8" x:Name="SortTime" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
                             <TextBlock Margin="4 8 8 8" Text="seconds" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
                         </StackPanel>
