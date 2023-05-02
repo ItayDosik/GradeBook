@@ -339,11 +339,13 @@ namespace GradeBook.ViewModel
             RaisePropertyChanged(nameof(Loading));
             if (students.Any())
             {
+
                 stopwatch= Stopwatch.StartNew();
                 Students = new ObservableCollection<Student>(Student.SortStudentsByAverage(students));
                 stopwatch.Stop();
                 SortTime = stopwatch.Elapsed.TotalSeconds.ToString();
-                RaisePropertyChanged(nameof(SortTime));
+                RaisePropertyChanged(nameof(SortTime));        
+
             }
             RaisePropertyChanged(nameof(Students));
             Loading = false;
