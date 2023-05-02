@@ -13,6 +13,7 @@ namespace GradeBook.ViewModel
     public class StudentViewModel:ValidationViewModelBase
     {
         List<Student> students;
+        HashSet<int> existingIds = new HashSet<int>();
         Student temp;
         Random random;
 
@@ -225,15 +226,21 @@ namespace GradeBook.ViewModel
                 g4 = random.Next(0, 102);
                 if (g4 == 101)
                     g4 = 777;
-                id = random.Next(100000000, 1000000000);
-                while(students.Where(s=>s.ID==id.ToString()).Any())
+                do
+                {
                     id = random.Next(100000000, 1000000000);
+                } while (existingIds.Contains(id));
+                existingIds.Add(id);
                 students.Add(new Student(id.ToString(), firstname, lastname, email, phone, g0, g1, g2, g3, g4));    
             }
         }
         private void SaveStudent(object? obj)
         {
             students.Add(new Student(temp));
+            if (temp.ID != null)
+            {
+                existingIds.Add(int.Parse(temp.ID));
+            }
             ClearStudentForm();
 
         }

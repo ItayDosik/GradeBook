@@ -95,19 +95,10 @@ namespace GradeBook
 
         }
 
-        private async void confirmBtn_Click(object sender, RoutedEventArgs e)
+        private void confirmBtn_Click(object sender, RoutedEventArgs e)
         {
-            AddStudentsPBar.Visibility = Visibility.Visible;
-            await Task.Run(() =>
-            {
-                studentViewModel.AddRandomStudent(1);
-            });
-            
-            Dispatcher.Invoke(() =>
-            {               
-                DialogHost.Close("rootDialog");
-                AddStudentsPBar.Visibility = Visibility.Collapsed;
-            });
+            studentViewModel.AddRandomStudent(1);
+            DialogHost.Close("rootDialog");
         }
     }
 }

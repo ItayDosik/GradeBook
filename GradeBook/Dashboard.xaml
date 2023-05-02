@@ -83,9 +83,6 @@
                                                         IsCancel="True" Margin="0 8 8 0"
                                                         Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCEL"/>
                                         </StackPanel>
-                                        <ProgressBar x:Name="AddStudentsPBar" Margin="16" HorizontalAlignment="Center" IsIndeterminate="True"
-                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                                        Value="0"  VerticalAlignment="Center" Visibility="Collapsed"/>
                                     </StackPanel>
                                 </Button.CommandParameter>
                             </Button>
