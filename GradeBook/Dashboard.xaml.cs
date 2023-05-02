@@ -78,36 +78,13 @@ namespace GradeBook
             StudnetsBtn.ClearValue(Button.BackgroundProperty);
             StudnetsBtn.ClearValue(Button.ForegroundProperty);
             Stopwatch stopwatch = Stopwatch.StartNew();
-            Elapsed.Visibility = Visibility.Hidden;
-
             await Task.Run(() =>
             {
                 studentViewModel.SortStudents();
                 stopwatch.Stop();
-
-            });
-
-            Dispatcher.Invoke(() =>
-            {
-                Elapsed.Visibility = Visibility.Visible;
-                SortTime.Text = stopwatch.Elapsed.TotalSeconds.ToString();
-            });
-
-        }
-
-        private async void confirmBtn_Click(object sender, RoutedEventArgs e)
-        {
-            AddStudentsPBar.Visibility = Visibility.Visible;
-            await Task.Run(() =>
-            {
-                studentViewModel.AddRandomStudent(1);
-            });
-            
-            Dispatcher.Invoke(() =>
-            {               
-                DialogHost.Close("rootDialog");
-                AddStudentsPBar.Visibility = Visibility.Collapsed;
             });
         }
+
+       
     }
 }

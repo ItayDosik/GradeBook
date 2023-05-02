@@ -4,28 +4,32 @@ using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Text.RegularExpressions;
-using System.Windows;
+using System.Threading.Tasks;
+using System.Windows.Threading;
 
 namespace GradeBook.ViewModel
 {
     public class StudentViewModel:ValidationViewModelBase
     {
-        List<Student> students;
-        Student temp;
-        Random random;
-
+        private List<Student> students;
+        private Student temp;
+        private Random random;
+        private HashSet<string> idSet;
         public StudentViewModel()
         {
             students = new List<Student>();
             temp = new Student();
             SaveOneStudent = new DelegateCommand(SaveStudent);
-            AddRandomCommand = new DelegateCommand(AddRandomStudent);
+            AddRandomCommand = new DelegateCommand(AddRandomStudentAsync);
             random = new Random();
             Students = new ObservableCollection<Student>();
+            idSet = new HashSet<string>();
+            //ShowMessage = false;
+            Loading = false;
         }
-        public bool Loading { get; set; }
         public DelegateCommand SaveOneStudent { get; set; }
         public DelegateCommand AddRandomCommand { get; set; }
         public ObservableCollection<Student> Students { get; set; }
@@ -44,7 +48,7 @@ namespace GradeBook.ViewModel
                 {
                     AddError("ID must contain numbers only");
                 }
-                if(students.Where(s=>s.ID==value).Any())
+                if(idSet.Contains(value))
                 {
                     AddError("ID already exists");
                 }
@@ -114,7 +118,7 @@ namespace GradeBook.ViewModel
                 RaisePropertyChanged(nameof(IsSaveAble));
                 if (value != null)
                 {
-                    bool isValidEmail = Regex.IsMatch(value, @"^[^@\s]+@[^@\s]+\.[^@\s]+$");
+                    bool isValidEmail = value.Contains("@");
                     if (!isValidEmail)
                     {
                        AddError("Enter valid email");
@@ -146,45 +150,110 @@ namespace GradeBook.ViewModel
             }
         }
 
-        public string? StrGrades
-        {
-            get => temp.strGrades;
-            set
-            {
-                temp.strGrades = value;
-                ClearErrors();
+        public string? Grade1 { 
+            get=>temp.Grades[0].ToString(); 
+            set {
+                int grade;
+                if (int.TryParse(value, out grade) && ((grade >= 0 && grade <= 100) || grade == 777))
+                {
+                    ClearErrors();
+                    temp.Grades[0] = grade;
+                }
+                else
+                {
+                    AddError("0-100 or 777");
+                    temp.Grades[0] = null;
+                }
                 RaisePropertyChanged();
                 RaisePropertyChanged(nameof(IsSaveAble));
-                if (value != null)
+            } 
+        }
+        public string? Grade2
+        {
+            get => temp.Grades[1].ToString();
+            set
+            {
+                int grade;
+                if (int.TryParse(value, out grade) && ((grade >= 0 && grade <= 100) || grade == 777))
                 {
-                    bool isValid = Regex.IsMatch(value, @"^(?:100|[1-9]\d|\d)(?:,(?:100|[1-9]\d|\d)){0,4}$");
-                    if (!isValid)
-                    {
-                        AddError("Enter valid grades. ex. \"86,42,16,100,25\"");
-                    }
-                    if (isValid)
-                    {
-                        string[] gradesArray = value.Split(',');
-                        int[] grades = Array.ConvertAll(gradesArray, int.Parse);
-
-                        for (int i = 0; i < grades.Length; i++)
-                        {
-                            temp.Grades[i] = grades[i];                           
-                        }
-
-                        for (int i = grades.Length; i < 5; i++)
-                        {
-                            temp.Grades[i] = 777;
-                        }
-
-                    }
+                    ClearErrors();
+                    temp.Grades[1] = grade;
                 }
+                else
+                {
+                    AddError("0-100 or 777");
+                    temp.Grades[1] = null;
+                }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
             }
         }
+        public string? Grade3
+        {
+            get => temp.Grades[2].ToString();
+            set
+            {
+                int grade;
+                if (int.TryParse(value, out grade) && ((grade >= 0 && grade <= 100) || grade == 777))
+                {
+                    ClearErrors();
+                    temp.Grades[2] = grade;
+                }
+                else
+                {
+                    AddError("0-100 or 777");
+                    temp.Grades[2] = null;
+                }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
+            }
+        }
+        public string? Grade4
+        {
+            get => temp.Grades[3].ToString();
+            set
+            {
+                int grade;
+                if (int.TryParse(value, out grade) && ((grade >= 0 && grade <= 100) || grade == 777))
+                {
+                    ClearErrors();
+                    temp.Grades[3] = grade;
+                }
+                else
+                {
+                    AddError("0-100 or 777");
+                    temp.Grades[3] = null;
+                }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
+            }
+        }
+        public string? Grade5
+        {
+            get => temp.Grades[4].ToString();
+            set
+            {
+                int grade;
+                if (int.TryParse(value, out grade) && ((grade >= 0 && grade <= 100) || grade == 777))
+                {
+                    ClearErrors();
+                    temp.Grades[4] = grade;
+                }
+                else
+                {
+                    AddError("0-100 or 777");
+                    temp.Grades[4] = null;
+                }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
+            }
+        }
+        public bool Loading {get; set;}
+        //public bool ShowMessage { get; set; }
+        public bool IsSaveAble { get => !HasErrors && ID != null && FirstName != null && LastName != null && Email != null && Phone != null && Grade1 != null && Grade2 != null && Grade3 != null && Grade4 != null && Grade5 != null; }
+        public string SortTime { get; private set; }
 
-        public bool IsSaveAble { get => !HasErrors && ID != null && FirstName != null && LastName != null && Email != null && Phone != null && StrGrades != null; }
-
-        public void AddRandomStudent(object? obj)
+        public async void AddRandomStudentAsync(object? obj)
         {
             int id,g0,g1,g2,g3,g4;
             string firstname, lastname, email, phone;
@@ -226,14 +295,24 @@ namespace GradeBook.ViewModel
                 if (g4 == 101)
                     g4 = 777;
                 id = random.Next(100000000, 1000000000);
-                while(students.Where(s=>s.ID==id.ToString()).Any())
+                while(idSet.Contains(id.ToString()))
                     id = random.Next(100000000, 1000000000);
-                students.Add(new Student(id.ToString(), firstname, lastname, email, phone, g0, g1, g2, g3, g4));    
+                students.Add(new Student(id.ToString(), firstname, lastname, email, phone, g0, g1, g2, g3, g4)); 
+                idSet.Add(id.ToString());
             }
+            DialogHost.Close("rootDialog");
+            await Task.Run(() =>
+            {
+                SortStudents();
+                
+            });
+            
+
         }
         private void SaveStudent(object? obj)
         {
             students.Add(new Student(temp));
+            idSet.Add(temp.ID);
             ClearStudentForm();
 
         }
@@ -245,19 +324,31 @@ namespace GradeBook.ViewModel
             RaisePropertyChanged(nameof(LastName));
             RaisePropertyChanged(nameof(Phone));
             RaisePropertyChanged(nameof(Email));
-            RaisePropertyChanged(nameof(StrGrades));
+            RaisePropertyChanged(nameof(Grade1));
+            RaisePropertyChanged(nameof(Grade2));
+            RaisePropertyChanged(nameof(Grade3));
+            RaisePropertyChanged(nameof(Grade4));
+            RaisePropertyChanged(nameof(Grade5));
             RaisePropertyChanged(nameof(IsSaveAble));
         }
 
         public void SortStudents()
         {
-            Loading= true;
+            Stopwatch stopwatch;
+            Loading =true;
             RaisePropertyChanged(nameof(Loading));
-            if(students.Any())
+            if (students.Any())
+            {
+                stopwatch= Stopwatch.StartNew();
                 Students = new ObservableCollection<Student>(Student.SortStudentsByAverage(students));
+                stopwatch.Stop();
+                SortTime = stopwatch.Elapsed.TotalSeconds.ToString();
+                RaisePropertyChanged(nameof(SortTime));
+            }
             RaisePropertyChanged(nameof(Students));
             Loading = false;
             RaisePropertyChanged(nameof(Loading));
+            
         }
     }
 }

@@ -69,23 +69,33 @@
                                     <TextBlock Text="Random Students" Style="{StaticResource menuButtonText}"/>
                                 </StackPanel>
                                 <Button.CommandParameter>
-                                    <StackPanel Margin="16">
-                                        <Label Content="Add Random Students" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="0 0 0 5"/>
-                                        <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="0 0 0 1" Margin="0 0 0 5"/>
-                                        <Label Content="This feature will add 10,000 random students to your report." HorizontalAlignment="Center" FontSize="15"/>
-                                        <Label Content="Would you like to proceed with this action?" HorizontalAlignment="Center" FontSize="15"/>
-                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
-                                            <Button x:Name="confirmBtn" Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Foreground="#4c956c"
-                                                        Margin="0 8 8 0" Content="CONFIRM"
-                                                        Click="confirmBtn_Click"
-                                                        IsCancel="True"/>
-                                            <Button  Style="{StaticResource MaterialDesignFlatButton}" Foreground="Black"
-                                                        IsCancel="True" Margin="0 8 8 0"
-                                                        Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCEL"/>
+                                    <StackPanel>
+                                        <StackPanel Margin="16" x:Name="ConfirmDialog">
+                                            <Label Content="Add Random Students" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="0 0 0 5"/>
+                                            <Border BorderBrush="{StaticResource MaterialDesignDivider}" BorderThickness="0 0 0 1" Margin="0 0 0 5"/>
+                                            <Label Content="This feature will add 10,000 random students to your report." HorizontalAlignment="Center" FontSize="15"/>
+                                            <Label Content="Would you like to proceed with this action?" HorizontalAlignment="Center" FontSize="15"/>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                                                <Button x:Name="confirmBtn" Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Foreground="#4c956c"
+                                                            Margin="0 8 8 0" Content="CONFIRM"
+                                                            Command="{Binding AddRandomCommand}"
+                                                            IsCancel="True"/>
+                                                <Button  Style="{StaticResource MaterialDesignFlatButton}" Foreground="Black"
+                                                            IsCancel="True" Margin="0 8 8 0"
+                                                            Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCEL"/>
+                                            </StackPanel>
+                                            
                                         </StackPanel>
-                                        <ProgressBar x:Name="AddStudentsPBar" Margin="16" HorizontalAlignment="Center" IsIndeterminate="True"
-                                                        Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                                        Value="0"  VerticalAlignment="Center" Visibility="Collapsed"/>
+                           
+                                        <!--<StackPanel Margin="16"   Visibility="{Binding ShowMessage ,Converter={StaticResource BooleanToVisibilityConverter}}">
+                                            <Label Content="10000 Students added successfully" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="0 0 0 5"/>
+                                            <Button  Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Foreground="#4c956c"
+                                                            Margin="0 8 8 0" Content="OK"
+                                                            Click="Button_Click"
+                                                            IsCancel="True"/>
+                                           
+                                            
+                                        </StackPanel>-->
                                     </StackPanel>
                                 </Button.CommandParameter>
                             </Button>
@@ -170,9 +180,20 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="2" Margin="50 10">
-                                        <TextBlock Margin="0 0 0 8" Text="Grades (Enter up to 5 grades, separated by comma)" Foreground="#97A5B4" FontSize="13"/>
+                                        <TextBlock Margin="0 0 0 8" Text="Grades" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
-                                            <TextBox x:Name="Grades" FontSize="17" Text="{Binding StrGrades}"/>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                                <ColumnDefinition/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBox  Grid.Column="0" FontSize="17" Text="{Binding Grade1}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="1" FontSize="17" Text="{Binding Grade2}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="2" FontSize="17" Text="{Binding Grade3}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="3" FontSize="17" Text="{Binding Grade4}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="4" FontSize="17" Text="{Binding Grade5}" Margin="0 0 15 0"/>
                                         </Grid>
                                     </StackPanel>
 
@@ -193,20 +214,22 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition/>
                         </Grid.RowDefinitions>
-                        <materialDesign:Card Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="{Binding Loading, Converter={StaticResource BooleanToVisibilityConverter}}">
-                            <StackPanel>
+                        <materialDesign:Card Grid.RowSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <StackPanel Visibility="{Binding Loading ,Converter={StaticResource BooleanToVisibilityConverter }}">
                                 <TextBlock Text="Loading, please wait." FontSize="15" Foreground="#333232" Margin="10" FontWeight="SemiBold"/>
                                 <ProgressBar x:Name="Loading" Margin="16" HorizontalAlignment="Center" IsIndeterminate="True"
                                 Style="{StaticResource MaterialDesignCircularProgressBar}"
-                                Value="0"  VerticalAlignment="Center"/>
+                                Value="0"  VerticalAlignment="Center" />
                             </StackPanel>
-                        </materialDesign:Card>
-                        <StackPanel x:Name="Elapsed" Orientation="Horizontal" HorizontalAlignment="Center">
-                            <TextBlock Margin="8" Text="Elapsed time:" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
-                            <TextBlock Margin="0 8 0 8" x:Name="SortTime" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
-                            <TextBlock Margin="4 8 8 8" Text="seconds" Foreground="Gray" FontSize="10" FontWeight="SemiBold"/>
+                        </materialDesign:Card >
+                        <StackPanel x:Name="Elapsed" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}">
+                            <TextBlock Margin="0 8 0 0" Text="Number of students: " Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
+                            <TextBlock Margin="0 8 60 0" Text="{Binding Students.Count}" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
+                            <TextBlock Margin="8" Text="Elapsed time:" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
+                            <TextBlock Margin="0 8 0 8" x:Name="SortTime" Foreground="Gray" FontSize="15" FontWeight="SemiBold" Text="{Binding SortTime}"/>
+                            <TextBlock Margin="4 8 8 8" Text="seconds" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
                         </StackPanel>
-                        <DataGrid x:Name="Data" ItemsSource="{Binding Students}" Grid.Row="1" Visibility="{Binding Loading, Converter={StaticResource InverseBooleanToVisibilityConverter}}"/>
+                        <DataGrid x:Name="Data" ItemsSource="{Binding Students}" Grid.Row="1" CanUserSortColumns="False" Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}"/>
                     </Grid>
                 </materialDesign:Transitioner>
                 
