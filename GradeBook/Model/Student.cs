@@ -49,7 +49,11 @@ namespace GradeBook.Model
 
         public static List<Student> SortStudentsByAverage(List<Student> students)
         {
-
+            /*
+             * ******************************
+             * BUBBLE SORT
+             * ******************************
+             */
             //List<Student> arr = new List<Student>(students);
             //int n = students.Count;
             //for (int i = 0; i < n - 1; i++)
@@ -58,7 +62,7 @@ namespace GradeBook.Model
             //    {
             //        if (arr[j].Average > arr[j + 1].Average)
             //        {
-            //            // Swap students if j-th student's average is greater than (j+1)-th student's average
+            //            Swap students if j - th student's average is greater than (j+1)-th student's average
             //            Student temp = arr[j];
             //            arr[j] = arr[j + 1];
             //            arr[j + 1] = temp;
@@ -67,7 +71,13 @@ namespace GradeBook.Model
             //}
             //return new List<Student>(arr);
 
+            //*****************************************************************************
 
+            /*
+            * ******************************
+            * RADIX SORT
+            * ******************************
+            */
             var arr = students.ToArray();
             double maxAverage = arr[0].Average;
             for (int i = 1; i < arr.Length; i++)
@@ -84,6 +94,39 @@ namespace GradeBook.Model
                 CountingSortByAverage(arr, exp);
             }
             return new List<Student>(arr);
+
+            void CountingSortByAverage(Student[] arr, int exp)
+            {
+                Student[] output = new Student[arr.Length];
+                int[] count = new int[10];
+
+                // Count occurrences of digits at the current exponent
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    int digit = (int)((arr[i].Average / exp) % 10);
+                    count[digit]++;
+                }
+
+                // Calculate the cumulative count of digits
+                for (int i = 1; i < count.Length; i++)
+                {
+                    count[i] += count[i - 1];
+                }
+
+                // Build the output array
+                for (int i = arr.Length - 1; i >= 0; i--)
+                {
+                    int digit = (int)((arr[i].Average / exp) % 10);
+                    output[count[digit] - 1] = arr[i];
+                    count[digit]--;
+                }
+
+                // Copy the output array back to the input array
+                for (int i = 0; i < arr.Length; i++)
+                {
+                    arr[i] = output[i];
+                }
+            }
         }
         private double calcAverage()
         {

@@ -227,7 +227,7 @@
                             </StackPanel>
 
                         </Grid>
-                        <DataGrid x:Name="Data" ItemsSource="{Binding Students}" Grid.Row="1" CanUserSortColumns="False" Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}"/>
+                        <DataGrid x:Name="Data" ItemsSource="{Binding Students}" Grid.Row="1" CanUserSortColumns="False" Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}" CanUserAddRows="False" IsReadOnly="True"/>
                     </Grid>
                 </materialDesign:Transitioner>
                 
