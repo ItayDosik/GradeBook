@@ -84,18 +84,8 @@
                                                             IsCancel="True" Margin="0 8 8 0"
                                                             Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCEL"/>
                                             </StackPanel>
-                                            
+
                                         </StackPanel>
-                           
-                                        <!--<StackPanel Margin="16"   Visibility="{Binding ShowMessage ,Converter={StaticResource BooleanToVisibilityConverter}}">
-                                            <Label Content="10000 Students added successfully" HorizontalAlignment="Center" FontWeight="Bold" FontSize="20" Margin="0 0 0 5"/>
-                                            <Button  Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Foreground="#4c956c"
-                                                            Margin="0 8 8 0" Content="OK"
-                                                            Click="Button_Click"
-                                                            IsCancel="True"/>
-                                           
-                                            
-                                        </StackPanel>-->
                                     </StackPanel>
                                 </Button.CommandParameter>
                             </Button>
@@ -222,13 +212,21 @@
                                 Value="0"  VerticalAlignment="Center" />
                             </StackPanel>
                         </materialDesign:Card >
-                        <StackPanel x:Name="Elapsed" Orientation="Horizontal" HorizontalAlignment="Center" Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}">
-                            <TextBlock Margin="0 8 0 0" Text="Number of students: " Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
-                            <TextBlock Margin="0 8 60 0" Text="{Binding Students.Count}" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
-                            <TextBlock Margin="8" Text="Elapsed time:" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
-                            <TextBlock Margin="0 8 0 8" x:Name="SortTime" Foreground="Gray" FontSize="15" FontWeight="SemiBold" Text="{Binding SortTime}"/>
-                            <TextBlock Margin="4 8 8 8" Text="seconds" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
-                        </StackPanel>
+                        <Grid Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}" Grid.Row="0" Background="White">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                <TextBlock Margin="0 8 0 0" Text="Number of students: " Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
+                                <TextBlock Margin="0 8 60 0" Text="{Binding Students.Count}" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
+                                <TextBlock Margin="8" Text="Elapsed time:" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
+                                <TextBlock Margin="0 8 0 8" x:Name="SortTime" Foreground="Gray" FontSize="15" FontWeight="SemiBold" Text="{Binding SortTime}"/>
+                                <TextBlock Margin="4 8 8 8" Text="seconds" Foreground="Gray" FontSize="15" FontWeight="SemiBold"/>
+                            </StackPanel>
+
+                        </Grid>
                         <DataGrid x:Name="Data" ItemsSource="{Binding Students}" Grid.Row="1" CanUserSortColumns="False" Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}"/>
                     </Grid>
                 </materialDesign:Transitioner>

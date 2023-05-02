@@ -18,6 +18,7 @@ namespace GradeBook.ViewModel
         private Student temp;
         private Random random;
         private HashSet<string> idSet;
+
         public StudentViewModel()
         {
             students = new List<Student>();
@@ -335,7 +336,9 @@ namespace GradeBook.ViewModel
         {
             Stopwatch stopwatch;
             Loading =true;
+            SortTime = "0";
             RaisePropertyChanged(nameof(Loading));
+            RaisePropertyChanged(nameof(SortTime));
             if (students.Any())
             {
 
