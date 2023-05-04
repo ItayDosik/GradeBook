@@ -334,7 +334,8 @@ namespace GradeBook.ViewModel
 
         public void SortStudents()
         {
-            Stopwatch stopwatch;
+            DateTime time = DateTime.Now;
+            TimeSpan timeSpan;
             Loading =true;
             SortTime = "0";
             RaisePropertyChanged(nameof(Loading));
@@ -342,10 +343,10 @@ namespace GradeBook.ViewModel
             if (students.Any())
             {
 
-                stopwatch= Stopwatch.StartNew();
+                time = DateTime.Now;
                 Students = new ObservableCollection<Student>(Student.SortStudentsByAverage(students));
-                stopwatch.Stop();
-                SortTime = stopwatch.Elapsed.TotalSeconds.ToString();
+                timeSpan = DateTime.Now-time;
+                SortTime = timeSpan.TotalSeconds.ToString();
                 RaisePropertyChanged(nameof(SortTime));        
 
             }

@@ -77,13 +77,14 @@ namespace GradeBook
 
             StudnetsBtn.ClearValue(Button.BackgroundProperty);
             StudnetsBtn.ClearValue(Button.ForegroundProperty);
-            Stopwatch stopwatch = Stopwatch.StartNew();
+      
 
             await Task.Run(() =>
             {
                 studentViewModel.SortStudents();
-                stopwatch.Stop();
+                
             });
+            
         }
 
        

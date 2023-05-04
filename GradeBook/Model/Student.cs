@@ -55,21 +55,30 @@ namespace GradeBook.Model
              * ******************************
              */
             //List<Student> arr = new List<Student>(students);
+            //Student temp;
             //int n = students.Count;
-            //for (int i = 0; i < n - 1; i++)
+            //int i, j;
+            //bool swapped;
+            //for (i = 0; i < n - 1; i++)
             //{
-            //    for (int j = 0; j < n - i - 1; j++)
+            //    swapped = false;
+            //    for (j = 0; j < n - i - 1; j++)
             //    {
             //        if (arr[j].Average > arr[j + 1].Average)
             //        {
-            //            Swap students if j - th student's average is greater than (j+1)-th student's average
-            //            Student temp = arr[j];
+            //            temp = arr[j];
             //            arr[j] = arr[j + 1];
             //            arr[j + 1] = temp;
+            //            swapped = true;
             //        }
             //    }
+
+            //    // IF no two elements were swapped by inner loop, then break
+            //    if (swapped == false)
+            //        break;
             //}
-            //return new List<Student>(arr);
+
+            //return arr;
 
             //*****************************************************************************
 
