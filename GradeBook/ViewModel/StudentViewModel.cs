@@ -150,7 +150,7 @@ namespace GradeBook.ViewModel
                 }
                 else
                 {
-                    AddError("0-100 or 777");
+                    AddError("0 - 100 or 777");
                     temp.Grades[0] = null;
                 }
                 RaisePropertyChanged();
@@ -170,7 +170,7 @@ namespace GradeBook.ViewModel
                 }
                 else
                 {
-                    AddError("0-100 or 777");
+                    AddError("0 - 100 or 777");
                     temp.Grades[1] = null;
                 }
                 RaisePropertyChanged();
@@ -190,7 +190,7 @@ namespace GradeBook.ViewModel
                 }
                 else
                 {
-                    AddError("0-100 or 777");
+                    AddError("0 - 100 or 777");
                     temp.Grades[2] = null;
                 }
                 RaisePropertyChanged();
@@ -210,7 +210,7 @@ namespace GradeBook.ViewModel
                 }
                 else
                 {
-                    AddError("0-100 or 777");
+                    AddError("0 - 100 or 777");
                     temp.Grades[3] = null;
                 }
                 RaisePropertyChanged();
@@ -230,7 +230,7 @@ namespace GradeBook.ViewModel
                 }
                 else
                 {
-                    AddError("0-100 or 777");
+                    AddError("0 - 100 or 777");
                     temp.Grades[4] = null;
                 }
                 RaisePropertyChanged();
@@ -238,7 +238,7 @@ namespace GradeBook.ViewModel
             }
         }
         public bool Loading {get; set;}
-        public bool IsSaveAble { get => !HasErrors && ID != null && FirstName != null && LastName != null && Email != null && Phone != null && Grade1 != null && Grade2 != null && Grade3 != null && Grade4 != null && Grade5 != null; }
+        public bool IsSaveAble { get => !HasErrors && ID != null && FirstName != null && LastName != null && Email != null && Phone != null && Grade1 != "" && Grade2 != "" && Grade3 != "" && Grade4 != "" && Grade5 != ""; }
         public string SortTime { get; private set; }
 
         public async void AddRandomStudentAsync(object? obj)
@@ -299,9 +299,55 @@ namespace GradeBook.ViewModel
         }
         private void SaveStudent(object? obj)
         {
-            students.Add(new Student(temp));
-            idSet.Add(temp.ID);
-            ClearStudentForm();
+            if (IsSaveAble)
+            {
+                students.Add(new Student(temp));
+                idSet.Add(temp.ID);
+                ClearStudentForm();
+            }
+            else
+            {
+                if(ID == null)
+                {
+                    AddError("This field is required", nameof(ID));
+                }
+                if (FirstName == null)
+                {
+                    AddError("This field is required", nameof(FirstName));
+                }
+                if (LastName == null)
+                {
+                    AddError("This field is required", nameof(LastName));
+                }
+                if (Email == null)
+                {
+                    AddError("This field is required", nameof(Email));
+                }
+                if (Phone == null)
+                {
+                    AddError("This field is required", nameof(Phone));
+                }
+                if (Grade1 == "")
+                {
+                    AddError("This field is required", nameof(Grade1));
+                }
+                if (Grade2 == "")
+                {
+                    AddError("This field is required", nameof(Grade2));
+                }
+                if (Grade3 == "")
+                {
+                    AddError("This field is required", nameof(Grade3));
+                }
+                if (Grade4 == "")
+                {
+                    AddError("This field is required", nameof(Grade4));
+                }
+                if (Grade5 == "")
+                {
+                    AddError("This field is required", nameof(Grade5));
+                }
+            }
         }
         public void ClearStudentForm()
         {

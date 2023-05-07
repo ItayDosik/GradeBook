@@ -170,7 +170,7 @@
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="2" Margin="50 10">
-                                        <TextBlock Margin="0 0 0 8" Text="Grades" Foreground="#97A5B4" FontSize="13"/>
+                                        <TextBlock Margin="0 0 0 8" Text="Grades (Enter 777 for no grade)" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition/>
@@ -189,7 +189,7 @@
 
                                     <Button x:Name="SaveStudent" Content="Save"
                                             Command="{Binding SaveOneStudent}"
-                                            Foreground="White" Grid.Row="3" Grid.ColumnSpan="2" Width="150" Height="50" FontSize="20" IsEnabled="{Binding IsSaveAble}"/>
+                                            Foreground="White" Grid.Row="3" Grid.ColumnSpan="2" Width="150" Height="50" FontSize="20"/>
 
                                 </Grid>
                             </Grid>
