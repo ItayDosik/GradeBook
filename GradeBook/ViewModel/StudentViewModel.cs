@@ -304,6 +304,7 @@ namespace GradeBook.ViewModel
                 students.Add(new Student(temp));
                 idSet.Add(temp.ID);
                 ClearStudentForm();
+                DialogHost.OpenDialogCommand.Execute(obj, null);
             }
             else
             {
