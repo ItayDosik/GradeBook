@@ -28,7 +28,6 @@ namespace GradeBook.ViewModel
             random = new Random();
             Students = new ObservableCollection<Student>();
             idSet = new HashSet<string>();
-            //ShowMessage = false;
             Loading = false;
         }
         public DelegateCommand SaveOneStudent { get; set; }
@@ -67,13 +66,7 @@ namespace GradeBook.ViewModel
                 RaisePropertyChanged(nameof(IsSaveAble));
                 if (value != null)
                 {
-                    //if (value.Length > 20 || value.Length < 1)
-                    //{
-                    //    AddError("Name need to be 1 to 20 letters long");
-                    //}
-
                     bool isAlpha = Regex.IsMatch(value, @"^[a-zA-Z]+$");
-
                     if (!isAlpha)
                     {
                         AddError("Name cannot contain numbers or special chars");
@@ -93,11 +86,6 @@ namespace GradeBook.ViewModel
                 RaisePropertyChanged(nameof(IsSaveAble));
                 if (value != null)
                 {
-                    //if (value.Length > 20 && value.Length < 1)
-                    //{
-                    //    AddError("Last name need to be 1 to 20 letters long");
-                    //}
-
                     bool isAlpha = Regex.IsMatch(value, @"^[a-zA-Z]+$");
 
                     if (!isAlpha)
@@ -250,7 +238,6 @@ namespace GradeBook.ViewModel
             }
         }
         public bool Loading {get; set;}
-        //public bool ShowMessage { get; set; }
         public bool IsSaveAble { get => !HasErrors && ID != null && FirstName != null && LastName != null && Email != null && Phone != null && Grade1 != null && Grade2 != null && Grade3 != null && Grade4 != null && Grade5 != null; }
         public string SortTime { get; private set; }
 

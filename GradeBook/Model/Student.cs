@@ -97,7 +97,6 @@ namespace GradeBook.Model
                 }
             }
 
-            // Do counting sort for every digit, starting from least significant to most significant
             for (int exp = 1; maxAverage / exp > 0; exp *= 10)
             {
                 CountingSortByAverage(arr, exp);
@@ -109,20 +108,17 @@ namespace GradeBook.Model
                 Student[] output = new Student[arr.Length];
                 int[] count = new int[10];
 
-                // Count occurrences of digits at the current exponent
                 for (int i = 0; i < arr.Length; i++)
                 {
                     int digit = (int)((arr[i].Average / exp) % 10);
                     count[digit]++;
                 }
 
-                // Calculate the cumulative count of digits
                 for (int i = 1; i < count.Length; i++)
                 {
                     count[i] += count[i - 1];
                 }
 
-                // Build the output array
                 for (int i = arr.Length - 1; i >= 0; i--)
                 {
                     int digit = (int)((arr[i].Average / exp) % 10);
@@ -130,7 +126,6 @@ namespace GradeBook.Model
                     count[digit]--;
                 }
 
-                // Copy the output array back to the input array
                 for (int i = 0; i < arr.Length; i++)
                 {
                     arr[i] = output[i];
@@ -152,38 +147,6 @@ namespace GradeBook.Model
             if (items == 0)
                 return 0;
             else return sum / items;
-        }
-        private static void CountingSortByAverage(Student[] arr, int exp)
-        {
-            Student[] output = new Student[arr.Length];
-            int[] count = new int[10];
-
-            // Count occurrences of digits at the current exponent
-            for (int i = 0; i < arr.Length; i++)
-            {
-                int digit = (int)((arr[i].Average / exp) % 10);
-                count[digit]++;
-            }
-
-            // Calculate the cumulative count of digits
-            for (int i = 1; i < count.Length; i++)
-            {
-                count[i] += count[i - 1];
-            }
-
-            // Build the output array
-            for (int i = arr.Length - 1; i >= 0; i--)
-            {
-                int digit = (int)((arr[i].Average / exp) % 10);
-                output[count[digit] - 1] = arr[i];
-                count[digit]--;
-            }
-
-            // Copy the output array back to the input array
-            for (int i = 0; i < arr.Length; i++)
-            {
-                arr[i] = output[i];
-            }
         }
     }
 }
