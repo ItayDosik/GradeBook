@@ -83,7 +83,7 @@
                                                         <StackPanel Margin="16">
                                                             <TextBlock Text="10000 students added successfully" FontSize="20" FontWeight="SemiBold" Margin="10 10 10 20"/>
                                                             <Button HorizontalAlignment="Center" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Content="CLOSE"
-                                                                IsCancel="True" Style="{StaticResource MaterialDesignFlatButton}" />
+                                                                 Style="{StaticResource MaterialDesignFlatButton}" />
                                                         </StackPanel>
                                                     </Button.CommandParameter>
                                                 </Button>
@@ -197,7 +197,7 @@
                                     <Button x:Name="SaveStudent" Content="Save"
                                             Command="{Binding SaveOneStudent}"
                                             Foreground="White" Grid.Row="3" Grid.ColumnSpan="2" Width="150" Height="50" FontSize="20"
-                                            IsEnabled="{Binding IsSaveAble}">
+                                            IsEnabled="{Binding IsSaveAble}" IsDefault="True">
                                         <Button.CommandParameter>
                                             <StackPanel Margin="16">
                                                 <TextBlock Text="Student added successfully" FontSize="20" FontWeight="SemiBold" Margin="10 10 10 20"/>
