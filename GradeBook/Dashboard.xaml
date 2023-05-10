@@ -136,35 +136,35 @@
                                     <StackPanel Grid.Column="0" Grid.Row="0" Margin="50 10">
                                         <TextBlock Margin="0 0 0 8" Text="ID number" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
-                                            <TextBox x:Name="ID" FontSize="17" Text="{Binding ID}"/>
+                                            <TextBox x:Name="ID" FontSize="17" Text="{Binding ID,UpdateSourceTrigger=PropertyChanged}"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="0" Margin="50 10">
                                         <TextBlock Margin="0 0 0 8" Text="First Name" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
-                                            <TextBox x:Name="FirstName" FontSize="17" Text="{Binding FirstName}"/>
+                                            <TextBox x:Name="FirstName" FontSize="17" Text="{Binding FirstName,UpdateSourceTrigger=PropertyChanged}"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="1" Margin="50 10">
                                         <TextBlock Margin="0 0 0 8" Text="Last Name" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
-                                            <TextBox x:Name="LastName" FontSize="17" Text="{Binding LastName}"/>
+                                            <TextBox x:Name="LastName" FontSize="17" Text="{Binding LastName,UpdateSourceTrigger=PropertyChanged}"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="1" Grid.Row="1" Margin="50 10">
                                         <TextBlock Margin="0 0 0 8" Text="Email" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
-                                            <TextBox x:Name="Email" FontSize="17" Text="{Binding Email}"/>
+                                            <TextBox x:Name="Email" FontSize="17" Text="{Binding Email,UpdateSourceTrigger=PropertyChanged}"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <StackPanel Grid.Column="0" Grid.Row="2" Margin="50 10">
                                         <TextBlock Margin="0 0 0 8" Text="Phone Number" Foreground="#97A5B4" FontSize="13"/>
                                         <Grid>
-                                            <TextBox x:Name="PhoneNumber" FontSize="17" Text="{Binding Phone}"/>
+                                            <TextBox x:Name="PhoneNumber" FontSize="17" Text="{Binding Phone,UpdateSourceTrigger=PropertyChanged}"/>
                                         </Grid>
                                     </StackPanel>
 
@@ -178,17 +178,18 @@
                                                 <ColumnDefinition/>
                                                 <ColumnDefinition/>
                                             </Grid.ColumnDefinitions>
-                                            <TextBox  Grid.Column="0" FontSize="17" Text="{Binding Grade1}" Margin="0 0 15 0"/>
-                                            <TextBox  Grid.Column="1" FontSize="17" Text="{Binding Grade2}" Margin="0 0 15 0"/>
-                                            <TextBox  Grid.Column="2" FontSize="17" Text="{Binding Grade3}" Margin="0 0 15 0"/>
-                                            <TextBox  Grid.Column="3" FontSize="17" Text="{Binding Grade4}" Margin="0 0 15 0"/>
-                                            <TextBox  Grid.Column="4" FontSize="17" Text="{Binding Grade5}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="0" FontSize="17" Text="{Binding Grade1,UpdateSourceTrigger=PropertyChanged}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="1" FontSize="17" Text="{Binding Grade2,UpdateSourceTrigger=PropertyChanged}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="2" FontSize="17" Text="{Binding Grade3,UpdateSourceTrigger=PropertyChanged}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="3" FontSize="17" Text="{Binding Grade4,UpdateSourceTrigger=PropertyChanged}" Margin="0 0 15 0"/>
+                                            <TextBox  Grid.Column="4" FontSize="17" Text="{Binding Grade5,UpdateSourceTrigger=PropertyChanged}" Margin="0 0 15 0"/>
                                         </Grid>
                                     </StackPanel>
 
                                     <Button x:Name="SaveStudent" Content="Save"
                                             Command="{Binding SaveOneStudent}"
-                                            Foreground="White" Grid.Row="3" Grid.ColumnSpan="2" Width="150" Height="50" FontSize="20">
+                                            Foreground="White" Grid.Row="3" Grid.ColumnSpan="2" Width="150" Height="50" FontSize="20"
+                                            IsEnabled="{Binding IsSaveAble}">
                                         <Button.CommandParameter>
                                             <StackPanel Margin="16">
                                                 <TextBlock Text="Student added successfully" FontSize="20" FontWeight="SemiBold" Margin="10 10 10 20"/>

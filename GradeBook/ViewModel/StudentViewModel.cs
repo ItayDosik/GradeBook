@@ -38,8 +38,7 @@ namespace GradeBook.ViewModel
             set {
                 temp.ID = value;
                 ClearErrors();
-                RaisePropertyChanged();
-                RaisePropertyChanged(nameof(IsSaveAble));
+
                 if (value != null && value.Length != 9)
                 {
                     AddError("ID must be 9 numbers long");
@@ -52,6 +51,8 @@ namespace GradeBook.ViewModel
                 {
                     AddError("ID already exists");
                 }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
             } 
         }
 
@@ -62,8 +63,7 @@ namespace GradeBook.ViewModel
             {
                 temp.FirstName = value;
                 ClearErrors();
-                RaisePropertyChanged();
-                RaisePropertyChanged(nameof(IsSaveAble));
+
                 if (value != null)
                 {
                     bool isAlpha = Regex.IsMatch(value, @"^[a-zA-Z]+$");
@@ -72,6 +72,8 @@ namespace GradeBook.ViewModel
                         AddError("Name cannot contain numbers or special chars");
                     }
                 }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
             }
         }
 
@@ -82,8 +84,7 @@ namespace GradeBook.ViewModel
             {
                 temp.LastName = value;
                 ClearErrors();
-                RaisePropertyChanged();
-                RaisePropertyChanged(nameof(IsSaveAble));
+    
                 if (value != null)
                 {
                     bool isAlpha = Regex.IsMatch(value, @"^[a-zA-Z]+$");
@@ -92,7 +93,9 @@ namespace GradeBook.ViewModel
                     {
                         AddError("Last name cannot contain numbers or special chars");
                     }
-                }             
+                }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
             }
         }
 
@@ -103,8 +106,6 @@ namespace GradeBook.ViewModel
             {
                 temp.Email = value;
                 ClearErrors();
-                RaisePropertyChanged();
-                RaisePropertyChanged(nameof(IsSaveAble));
                 if (value != null)
                 {
                     bool isValidEmail = value.Contains("@");
@@ -113,6 +114,8 @@ namespace GradeBook.ViewModel
                        AddError("Enter valid email");
                     }
                 }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
             }
         }
 
@@ -123,8 +126,7 @@ namespace GradeBook.ViewModel
             {
                 temp.Phone = value;
                 ClearErrors();
-                RaisePropertyChanged();
-                RaisePropertyChanged(nameof(IsSaveAble));
+
                 if (value != null)
                 {
                     if (value.Length != 10)
@@ -136,6 +138,8 @@ namespace GradeBook.ViewModel
                         AddError("Phone number must contain numbers only");
                     }
                 }
+                RaisePropertyChanged();
+                RaisePropertyChanged(nameof(IsSaveAble));
             }
         }
 
@@ -299,56 +303,10 @@ namespace GradeBook.ViewModel
         }
         private void SaveStudent(object? obj)
         {
-            if (IsSaveAble)
-            {
-                students.Add(new Student(temp));
-                idSet.Add(temp.ID);
-                ClearStudentForm();
-                DialogHost.OpenDialogCommand.Execute(obj, null);
-            }
-            else
-            {
-                if(ID == null)
-                {
-                    AddError("This field is required", nameof(ID));
-                }
-                if (FirstName == null)
-                {
-                    AddError("This field is required", nameof(FirstName));
-                }
-                if (LastName == null)
-                {
-                    AddError("This field is required", nameof(LastName));
-                }
-                if (Email == null)
-                {
-                    AddError("This field is required", nameof(Email));
-                }
-                if (Phone == null)
-                {
-                    AddError("This field is required", nameof(Phone));
-                }
-                if (Grade1 == "")
-                {
-                    AddError("This field is required", nameof(Grade1));
-                }
-                if (Grade2 == "")
-                {
-                    AddError("This field is required", nameof(Grade2));
-                }
-                if (Grade3 == "")
-                {
-                    AddError("This field is required", nameof(Grade3));
-                }
-                if (Grade4 == "")
-                {
-                    AddError("This field is required", nameof(Grade4));
-                }
-                if (Grade5 == "")
-                {
-                    AddError("This field is required", nameof(Grade5));
-                }
-            }
+            students.Add(new Student(temp));
+            idSet.Add(temp.ID);
+            ClearStudentForm();
+            DialogHost.OpenDialogCommand.Execute(obj, null);
         }
         public void ClearStudentForm()
         {
