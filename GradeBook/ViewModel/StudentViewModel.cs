@@ -292,8 +292,7 @@ namespace GradeBook.ViewModel
                 students.Add(new Student(id.ToString(), firstname, lastname, email, phone, g0, g1, g2, g3, g4)); 
                 idSet.Add(id.ToString());
             }
-            DialogHost.Close("rootDialog");
-            DialogHost.OpenDialogCommand.Execute(obj, null);
+            DialogHost.GetDialogSession("rootDialog").UpdateContent(obj);
             await Task.Run(() =>
             {
                 SortStudents();
