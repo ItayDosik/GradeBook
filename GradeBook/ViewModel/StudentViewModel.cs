@@ -293,13 +293,14 @@ namespace GradeBook.ViewModel
                 idSet.Add(id.ToString());
             }
             DialogHost.Close("rootDialog");
+            DialogHost.OpenDialogCommand.Execute(obj, null);
             await Task.Run(() =>
             {
                 SortStudents();
                 
             });
-            
 
+            
         }
         private void SaveStudent(object? obj)
         {

@@ -6,7 +6,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:GradeBook" xmlns:viewmodel="clr-namespace:GradeBook.ViewModel" d:DataContext="{d:DesignInstance Type=viewmodel:StudentViewModel}"
         mc:Ignorable="d"
-        MinHeight="720"
+        MinHeight="700"
         MinWidth="1100"
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None"  Background="{x:Null}">
@@ -78,7 +78,15 @@
                                                 <Button x:Name="confirmBtn" Style="{StaticResource MaterialDesignFlatButton}" IsDefault="True" Foreground="#4c956c"
                                                             Margin="0 8 8 0" Content="CONFIRM"
                                                             Command="{Binding AddRandomCommand}"
-                                                            IsCancel="True"/>
+                                                            IsCancel="True">
+                                                    <Button.CommandParameter>
+                                                        <StackPanel Margin="16">
+                                                            <TextBlock Text="10000 students added successfully" FontSize="20" FontWeight="SemiBold" Margin="10 10 10 20"/>
+                                                            <Button HorizontalAlignment="Center" Command="{x:Static materialDesign:DialogHost.CloseDialogCommand}"  Content="CLOSE"
+                                                                IsCancel="True" Style="{StaticResource MaterialDesignFlatButton}" />
+                                                        </StackPanel>
+                                                    </Button.CommandParameter>
+                                                </Button>
                                                 <Button  Style="{StaticResource MaterialDesignFlatButton}" Foreground="Black"
                                                             IsCancel="True" Margin="0 8 8 0"
                                                             Command="materialDesign:DialogHost.CloseDialogCommand" Content="CANCEL"/>
@@ -235,7 +243,7 @@
                             </StackPanel>
 
                         </Grid>
-                        <DataGrid x:Name="Data" ItemsSource="{Binding Students}" Grid.Row="1" CanUserSortColumns="False" Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}" CanUserAddRows="False" IsReadOnly="True"/>
+                        <DataGrid ColumnWidth="*" x:Name="Data" ItemsSource="{Binding Students}" Grid.Row="1" CanUserSortColumns="False" Visibility="{Binding Loading ,Converter={StaticResource InverseBooleanToVisibilityConverter }}" CanUserAddRows="False" IsReadOnly="True"/>
                     </Grid>
                 </materialDesign:Transitioner>
                 

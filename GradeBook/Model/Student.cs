@@ -72,8 +72,6 @@ namespace GradeBook.Model
             //            swapped = true;
             //        }
             //    }
-
-            //    // IF no two elements were swapped by inner loop, then break
             //    if (swapped == false)
             //        break;
             //}
@@ -84,53 +82,71 @@ namespace GradeBook.Model
 
             /*
             * ******************************
-            * RADIX SORT
+            * MERGE SORT
             * ******************************
             */
-            var arr = students.ToArray();
-            double maxAverage = arr[0].Average;
-            for (int i = 1; i < arr.Length; i++)
+            List<Student> arr = new List<Student>(students);
+            SortByAverage(arr);
+            return arr;
+            void SortByAverage(List<Student> students)
             {
-                if (arr[i].Average > maxAverage)
+                if (students.Count <= 1)
+                    return;
+
+                List<Student> left = new List<Student>();
+                List<Student> right = new List<Student>();
+
+                int mid = students.Count / 2;
+                for (int i = 0; i < mid; i++)
                 {
-                    maxAverage = arr[i].Average;
+                    left.Add(students[i]);
+                }
+                for (int i = mid; i < students.Count; i++)
+                {
+                    right.Add(students[i]);
+                }
+
+                SortByAverage(left);
+                SortByAverage(right);
+                Merge(students, left, right);
+            }
+
+            void Merge(List<Student> students, List<Student> left, List<Student> right)
+            {
+                int leftIndex = 0;
+                int rightIndex = 0;
+                int studentsIndex = 0;
+
+                while (leftIndex < left.Count && rightIndex < right.Count)
+                {
+                    if (left[leftIndex].Average <= right[rightIndex].Average)
+                    {
+                        students[studentsIndex] = left[leftIndex];
+                        leftIndex++;
+                    }
+                    else
+                    {
+                        students[studentsIndex] = right[rightIndex];
+                        rightIndex++;
+                    }
+                    studentsIndex++;
+                }
+
+                while (leftIndex < left.Count)
+                {
+                    students[studentsIndex] = left[leftIndex];
+                    leftIndex++;
+                    studentsIndex++;
+                }
+
+                while (rightIndex < right.Count)
+                {
+                    students[studentsIndex] = right[rightIndex];
+                    rightIndex++;
+                    studentsIndex++;
                 }
             }
 
-            for (int exp = 1; maxAverage / exp > 0; exp *= 10)
-            {
-                CountingSortByAverage(arr, exp);
-            }
-            return new List<Student>(arr);
-
-            void CountingSortByAverage(Student[] arr, int exp)
-            {
-                Student[] output = new Student[arr.Length];
-                int[] count = new int[10];
-
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    int digit = (int)((arr[i].Average / exp) % 10);
-                    count[digit]++;
-                }
-
-                for (int i = 1; i < count.Length; i++)
-                {
-                    count[i] += count[i - 1];
-                }
-
-                for (int i = arr.Length - 1; i >= 0; i--)
-                {
-                    int digit = (int)((arr[i].Average / exp) % 10);
-                    output[count[digit] - 1] = arr[i];
-                    count[digit]--;
-                }
-
-                for (int i = 0; i < arr.Length; i++)
-                {
-                    arr[i] = output[i];
-                }
-            }
         }
         private double calcAverage()
         {

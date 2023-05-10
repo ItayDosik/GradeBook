@@ -20,8 +20,8 @@ namespace GradeBook
             InitializeComponent();
             studentViewModel = new StudentViewModel();
             DataContext = studentViewModel;
-            this.Height = SystemParameters.PrimaryScreenHeight * 0.80;
-            this.Width = SystemParameters.PrimaryScreenWidth * 0.60;
+            this.Height = SystemParameters.PrimaryScreenHeight * 0.6;
+            this.Width = SystemParameters.PrimaryScreenWidth * 0.6;
         }
 
         protected override void OnMouseLeftButtonDown(MouseButtonEventArgs e)
