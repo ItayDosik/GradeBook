@@ -39,14 +39,15 @@ namespace GradeBook.ViewModel
                 temp.ID = value;
                 ClearErrors();
 
-                if (value != null && value.Length != 9)
-                {
-                    AddError("ID must be 9 numbers long");
-                }
                 if (!int.TryParse(value, out _))
                 {
                     AddError("ID must contain numbers only");
                 }
+                if (value != null && value.Length != 9)
+                {
+                    AddError("ID must be 9 numbers long");
+                }
+               
                 if(idSet.Contains(value))
                 {
                     AddError("ID already exists");
@@ -111,7 +112,7 @@ namespace GradeBook.ViewModel
                     bool isValidEmail = value.Contains("@");
                     if (!isValidEmail)
                     {
-                       AddError("Enter valid email");
+                       AddError("Email must contain @");
                     }
                 }
                 RaisePropertyChanged();
@@ -129,13 +130,14 @@ namespace GradeBook.ViewModel
 
                 if (value != null)
                 {
+                   
+                    if (!int.TryParse(value, out _))
+                    {
+                        AddError("Phone number must contain numbers only");
+                    }
                     if (value.Length != 10)
                     {
                         AddError("Phone number must be 10 numbers long");
-                    }
-                    if (!double.TryParse(value, out _))
-                    {
-                        AddError("Phone number must contain numbers only");
                     }
                 }
                 RaisePropertyChanged();
