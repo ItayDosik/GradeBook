@@ -39,7 +39,7 @@ namespace GradeBook.ViewModel
                 temp.ID = value;
                 ClearErrors();
 
-                if (!int.TryParse(value, out _))
+                if (!long.TryParse(value, out _))
                 {
                     AddError("ID must contain numbers only");
                 }
@@ -131,7 +131,7 @@ namespace GradeBook.ViewModel
                 if (value != null)
                 {
                    
-                    if (!int.TryParse(value, out _))
+                    if (!long.TryParse(value, out _))
                     {
                         AddError("Phone number must contain numbers only");
                     }
